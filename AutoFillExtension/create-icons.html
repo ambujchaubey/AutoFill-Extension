@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Icons</title>
+</head>
+<body>
+    <h1>Click each canvas to download the icon</h1>
+    
+    <h3>Icon 16x16:</h3>
+    <canvas id="icon16" width="16" height="16"></canvas>
+    <br><br>
+    
+    <h3>Icon 48x48:</h3>
+    <canvas id="icon48" width="48" height="48"></canvas>
+    <br><br>
+    
+    <h3>Icon 128x128:</h3>
+    <canvas id="icon128" width="128" height="128"></canvas>
+
+    <script>
+        function createAndDownloadIcon(canvasId, size) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            
+            // Draw a green background
+            ctx.fillStyle = '#4CAF50';
+            ctx.fillRect(0, 0, size, size);
+            
+            // Draw 'AF' text
+            ctx.fillStyle = 'white';
+            ctx.font = `bold ${size/2}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('AF', size/2, size/2);
+            
+            // Add click handler to download
+            canvas.onclick = function() {
+                const link = document.createElement('a');
+                link.download = `${canvasId}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            };
+        }
+
+        // Create all icons
+        createAndDownloadIcon('icon16', 16);
+        createAndDownloadIcon('icon48', 48);
+        createAndDownloadIcon('icon128', 128);
+    </script>
+</body>
+</html>
